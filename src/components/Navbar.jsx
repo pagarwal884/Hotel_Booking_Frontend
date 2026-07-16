@@ -1,7 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets.js";
 import { useClerk, useUser, UserButton } from "@clerk/clerk-react";
+
+const BookIcon = ()=>(
+    <svg className="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 19V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v13H7a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M9 3v14m7 0v4" />
+    </svg>
+)
+
 
 const Navbar = () => {
     const navLinks = [
@@ -15,7 +22,10 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const { openSignIn } = useClerk();
-    const { isSignedIn } = useUser();
+    const {user} = useUser()
+
+    const navigate = useNavigate()
+    const location = useLocation()
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -82,8 +92,12 @@ const Navbar = () => {
                     } transition-all duration-500`}
                 />
 
-                {isSignedIn ? (
-                    <UserButton afterSignOutUrl="/" />
+                {user ? (
+                    <UserButton>
+                        <UserButton.MenuItems>
+                            <UserButton.Action label="My Bookings" labelIcon={<BookIcon />} onClick={() => navigate('/my-booking')}/>
+                        </UserButton.MenuItems>
+                    </UserButton>
                 ) : (
                     <button
                         onClick={() => openSignIn()}
@@ -141,12 +155,20 @@ const Navbar = () => {
                     Dashboard
                 </button>
 
-                {isSignedIn ? (
-                    <UserButton afterSignOutUrl="/" />
+                {user ? (
+                    <UserButton>
+                        <UserButton.MenuItems>
+                            <UserButton.Action label="My Bookings" labelIcon={<BookIcon />} onClick={() => navigate('/my-booking')}/>
+                        </UserButton.MenuItems>
+                    </UserButton>
                 ) : (
                     <button
                         onClick={() => openSignIn()}
-                        className="bg-black text-white px-8 py-2.5 rounded-full"
+                        className={`px-8 py-2.5 rounded-full ml-4 transition-all duration-500 ${
+                            isScrolled
+                                ? "bg-black text-white"
+                                : "bg-white text-black"
+                        }`}
                     >
                         Login
                     </button>

@@ -1,7 +1,5 @@
-import React from 'react'
 import Title from './Title'
 import { testimonials } from '../assets/assets'
-import { Star } from 'lucide-react'
 import StarRating from './StarRating'
 
 const Testimonials = () => {
@@ -17,13 +15,13 @@ const Testimonials = () => {
         {testimonials.map((testimonial) => (
           <div
             key={testimonial.id}
-            className="bg-white p-6 rounded-xl shadow w-full md:max-w-xs"
+            className="bg-white p-6 rounded-xl shadow "
           >
             <div className="flex items-center gap-3">
               <img
                 src={testimonial.image}
                 alt=""
-                className="rounded-full h-20 w-20 object-cover flex-shrink-0"
+                className="rounded-full h-20 w-20 object-cover shrink-0"
               />
 
               <div className="font-playfair text-xl">

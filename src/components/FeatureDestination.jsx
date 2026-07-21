@@ -1,4 +1,3 @@
-import React from 'react'
 import { roomsDummyData } from '../assets/assets'
 import HotelCard from './HotelCard'
 import Title from './Title'

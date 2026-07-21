@@ -1,6 +1,4 @@
-import { Star } from 'lucide-react'
-import React from 'react'
-import { assets, testimonials } from '../assets/assets'
+import { assets } from '../assets/assets'
 
 const StarRating = ({rating = 4}) => {
   return (

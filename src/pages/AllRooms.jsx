@@ -3,9 +3,47 @@ import { assets, facilityIcons, roomsDummyData } from "../assets/assets"
 import { useNavigate } from 'react-router-dom'
 import StarRating from '../components/StarRating'
 
+const CheckBox = ({ label, selected = false, onChange = () => { } }) => {
+    return (
+        <label className='flex gap-3 items-center cursor-pointer mt-2 text-sm'>
+            <input type="checkbox" checked={selected} onChange={(e) => onChange(e.target.checked, label)} />
+            <span className='font-light select-none'>{label}</span>
+        </label>
+    )
+}
+
+const RadioButton = ({ label, selected = false, onChange = () => { } }) => {
+    return (
+        <label className='flex gap-3 items-center cursor-pointer mt-2 text-sm'>
+            <input type="radio" name='sortOption' checked={selected} onChange={() => onChange(label)} />
+            <span className='font-light select-none'>{label}</span>
+        </label>
+    )
+}
+
 const AllRooms = () => {
     const navigate = useNavigate()
     const [openFilter, setOpenFilter] = useState(false)
+
+    const roomTypes = [
+        "Single Bed",
+        "Double Bed",
+        "Luxury",
+        "Family Suite"
+    ]
+
+    const priceRange = [
+        "0 to 500",
+        "500 to 1000",
+        "1000 to 2000",
+        "2000 onward",
+    ]
+
+    const sortOptions = [
+        "Price Low to High",
+        "Price High to Low",
+        "Newest First",
+    ]
     return (
         <div className='flex flex-col-reverse lg:flex-row items-start justify-between pt-28 md:pt-35 px-4 md:px-16 lg:px-24'>
             <div>
@@ -45,13 +83,63 @@ const AllRooms = () => {
                 ))}
 
             </div>
+    
             {/* Filters */}
-            <div className='bg-white w-80 border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16'>
-                <div className=''>
-                    <p className='text-base font-medium text-gray-800'>FILTERS</p>
-                    <div className='text-xs cursor-pointer'>
-                        <span className='lg:hidden'>HIDE</span>
-                        <span className='hidden lg:block'>CLEAR</span>
+            <div className="bg-white w-80 border border-gray-300 text-gray-600 max-lg:mb-8 lg:mt-16">
+                <div
+                    className={`flex items-center justify-between px-5 py-2.5 lg:border-b border-gray-300 ${openFilter ? "border-b" : ""
+                        }`}
+                >
+                    <p className="text-base font-medium text-gray-800">FILTERS</p>
+
+                    <div className="text-xs cursor-pointer">
+                        {/* Mobile */}
+                        <span
+                            className="lg:hidden"
+                            onClick={() => setOpenFilter(!openFilter)}
+                        >
+                            {openFilter ? "HIDE" : "SHOW"}
+                        </span>
+
+                        {/* Desktop */}
+                        <span className="hidden lg:block cursor-pointer hover:text-black">
+                            CLEAR
+                        </span>
+                    </div>
+                </div>
+
+                <div className={`${openFilter ? "block" : "hidden"} lg:block`}>
+                    {/* Popular Filter */}
+                    <div className="px-5 pt-5">
+                        <p className="font-medium text-gray-800 pb-2">
+                            Popular Filter
+                        </p>
+
+                        {roomTypes.map((room, index) => (
+                            <CheckBox key={index} label={room} />
+                        ))}
+                    </div>
+
+                    {/* Price Range */}
+                    <div className="px-5 pt-5">
+                        <p className="font-medium text-gray-800 pb-2">
+                            Price Range
+                        </p>
+
+                        {priceRange.map((range, index) => (
+                            <CheckBox key={index} label={`$ ${range}`} />
+                        ))}
+                    </div>
+
+                    {/* Sort By */}
+                    <div className="px-5 pt-5 pb-7">
+                        <p className="font-medium text-gray-800 pb-2">
+                            Sort By
+                        </p>
+
+                        {sortOptions.map((sort, index) => (
+                            <RadioButton key={index} label={sort} />
+                        ))}
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { assets, facilityIcons, roomsDummyData } from "../assets/assets";
+import { assets, facilityIcons, roomCommonData, roomsDummyData } from "../assets/assets";
 import StarRating from "../components/StarRating";
 
 const RoomDetails = () => {
@@ -115,7 +115,7 @@ const RoomDetails = () => {
           </div>
 
           <div className="w-px h-15 bg-gray-300/70 max-md:hidden"></div>
-          
+
           <div className="flex flex-col">
             <label htmlFor="guests">Guests</label>
             <input type="number" id="guests" placeholder="0" className="max-w-20 rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none" required />
@@ -123,11 +123,58 @@ const RoomDetails = () => {
 
         </div>
         <button type="submit" className="bg-primary hover:bg-primary-dull active:scale-95 transition-all text-white rounded-md max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer">
-          Book Now
+          Check Availability
         </button>
-
       </form>
 
+{/* Common Specification */}
+{/* Common Specification */}
+<div className="mt-25 space-y-4">
+  {roomCommonData.map((spec, index) => (
+    <div key={index} className="flex items-start gap-2">
+      <img src={spec.icon} alt="" className="w-6.5" />
+      <div>
+        <p className="text-base">{spec.title}</p>
+        <p className="text-gray-500">{spec.description}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<div className="max-w-3xl border-y border-gray-300 my-15 py-10 text-gray-500">
+  <p>
+    Experience a comfortable and memorable stay with thoughtfully designed
+    rooms, modern amenities, and exceptional hospitality. Each room is
+    equipped with high-speed Wi-Fi, air conditioning, premium bedding, and
+    elegant interiors to ensure maximum comfort. Whether you're traveling for
+    business or leisure, our hotel offers everything you need for a relaxing
+    and enjoyable stay, along with easy access to nearby attractions, dining,
+    and transportation.
+  </p>
+</div>
+
+{/* Hosted by */}
+<div className="flex flex-col items-start gap-4">
+  <div className="flex gap-4">
+    <img
+      src={room.hotel.owner.image}
+      alt={room.hotel.owner.username}
+      className="h-14 w-14 md:h-18 md:w-18 rounded-full object-cover"
+    />
+    <div>
+      <p className="text-lg md:text-xl">
+        Hosted By {room.hotel.name}
+      </p>
+      <div className="flex items-center mt-1">
+        <StarRating />
+        <p className="ml-2">200+ review</p>
+      </div>
+    </div>
+  </div>
+  <button className="px-6 py-2.5 mt-4 rounded text-white bg-primary hover:bg-primary-dull transition-all cursor-pointer">
+    Contact Now
+  </button>
+</div>
 
     </div>
   );

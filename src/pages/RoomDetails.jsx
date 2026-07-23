@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { assets, roomsDummyData } from "../assets/assets";
+import { assets, facilityIcons, roomsDummyData } from "../assets/assets";
 import StarRating from "../components/StarRating";
 
 const RoomDetails = () => {
@@ -57,7 +57,7 @@ const RoomDetails = () => {
           <img
             src={mainImage}
             alt=""
-            className="w-full h-[260px] sm:h-[380px] md:h-[480px] lg:h-[520px] rounded-2xl shadow-lg object-cover transition-all duration-300"
+            className="w-full h-65 sm:h-95 md:h-120 lg:h-130 rounded-2xl shadow-lg object-cover transition-all duration-300"
           />
         </div>
 
@@ -69,15 +69,37 @@ const RoomDetails = () => {
                 key={index}
                 src={image}
                 alt=""
-                className={`w-full h-[125px] sm:h-[180px] md:h-[235px] lg:h-[250px] rounded-2xl shadow-md object-cover cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
-                  mainImage === image
+                className={`w-full h-31.25 sm:h-45 md:h-58.75 lg:h-62.5 rounded-2xl shadow-md object-cover cursor-pointer transition-all duration-300 hover:scale-[1.02] ${mainImage === image
                     ? "outline-4 outline-orange-500"
                     : ""
-                }`}
+                  }`}
               />
             ))}
         </div>
       </div>
+
+      {/* Room Highlights */}
+      <div className="flex flex-col md:flex-row md:justify-between mt-10">
+        <div className="flex flex-col">
+          <h1 className="text-3xl md:text-4xl font-playfair">Experience Luxury Like Never Before</h1>
+          <div className="flex flex-wrap items-center mt-3 mb-6 gap-4">
+            {room.amenities.map((item, index) => (
+              <div key={index} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100">
+                <img src={facilityIcons[item]} alt="" className="h-5 w-5" />
+                <p className="text-xs">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Room Price */}
+        <p className="text-2xl font-medium">
+            ${room.pricePerNight} /night
+        </p>
+      </div>
+
+      {/* checkIn checkOut Form */}
+
+      
     </div>
   );
 };

@@ -70,8 +70,8 @@ const RoomDetails = () => {
                 src={image}
                 alt=""
                 className={`w-full h-31.25 sm:h-45 md:h-58.75 lg:h-62.5 rounded-2xl shadow-md object-cover cursor-pointer transition-all duration-300 hover:scale-[1.02] ${mainImage === image
-                    ? "outline-4 outline-orange-500"
-                    : ""
+                  ? "outline-4 outline-orange-500"
+                  : ""
                   }`}
               />
             ))}
@@ -93,13 +93,42 @@ const RoomDetails = () => {
         </div>
         {/* Room Price */}
         <p className="text-2xl font-medium">
-            ${room.pricePerNight} /night
+          ${room.pricePerNight} /night
         </p>
       </div>
 
       {/* checkIn checkOut Form */}
+      <form action="" className="flex flex-col md:flex-row items-start md:items-center justify-between bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.15)] p-6 rounded-xl mx-auto mt-16 max-w-6xl">
 
-      
+
+        <div className="flex flex-col flex-wrap md:flex-row items-start md:items-center gap-4 md:gap-10 text-gray-500">
+          <div className="flex flex-col">
+            <label htmlFor="checkInDate">Check-In</label>
+            <input type="date" id="checkInDate" placeholder="Check-In" className="w-full rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none" required />
+          </div>
+
+          <div className="w-px h-15 bg-gray-300/70 max-md:hidden"></div>
+
+          <div className="flex flex-col">
+            <label htmlFor="checkOutDate">Check-Out</label>
+            <input type="date" id="checkOutDate" placeholder="Check-Out" className="w-full rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none" required />
+          </div>
+
+          <div className="w-px h-15 bg-gray-300/70 max-md:hidden"></div>
+          
+          <div className="flex flex-col">
+            <label htmlFor="guests">Guests</label>
+            <input type="number" id="guests" placeholder="0" className="max-w-20 rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none" required />
+          </div>
+
+        </div>
+        <button type="submit" className="bg-primary hover:bg-primary-dull active:scale-95 transition-all text-white rounded-md max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer">
+          Book Now
+        </button>
+
+      </form>
+
+
     </div>
   );
 };
